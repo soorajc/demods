@@ -6,6 +6,7 @@
  */
 
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   View,
   Image,
@@ -24,12 +25,13 @@ const appLogo = require('../../assets/applogo.png');
 
 
 type Props = {};
-export default class App extends Component<Props> {
+export default class Home extends Component<Props> {
   static navigationOptions = {
     header: null,
   };
 
   render() {
+    const { navigation } = this.props;
     return (
       <View style={Styles.container}>
         <View style={Styles.header}>
@@ -66,7 +68,7 @@ export default class App extends Component<Props> {
                 title={item.title}
                 iconColor={item.color}
                 iconSize={width * 0.15}
-                handlePress={() => console.log(item.title)}
+                handlePress={() => navigation.navigate(item.navKey)}
               />
             ))
           }
@@ -75,3 +77,11 @@ export default class App extends Component<Props> {
     );
   }
 }
+
+
+Home.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+    dispatch: PropTypes.func.isRequired,
+  }).isRequired,
+};
