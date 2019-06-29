@@ -31,6 +31,25 @@ const styles = StyleSheet.create({
     fontSize: height * 0.04,
     fontWeight: 'bold',
   },
+  dropDownView: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  dropDownLabelContainer: {
+    width: width * 0.13,
+    paddingTop: height * 0.04,
+  },
+  dropdownContainer: {
+    width: width * 0.44,
+  },
+  dropDownNameLabel: {
+    fontSize: height * 0.026,
+  },
+  dropDownOverlay: {
+    marginTop: height * 0.06,
+    marginLeft: width * 0.05,
+  },
 });
 
 export default styles;
