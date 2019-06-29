@@ -12,8 +12,15 @@ import {
   Text,
   TouchableOpacity,
   Dimensions,
+  FlatList,
 } from 'react-native';
+import {
+  Collapse,
+  CollapseHeader,
+  CollapseBody,
+} from 'accordion-collapse-react-native';
 
+import WORKERS_LIST from './WorkersList';
 import Styles from './Styles';
 
 const { width } = Dimensions.get('window');
@@ -53,10 +60,60 @@ export default class Workers extends Component<Props> {
     };
   };
 
+  renderSection = (item, index, totalLength) => (
+    <TouchableOpacity
+      style={[Styles.sectionView,
+        { borderBottomWidth: index !== totalLength - 1 ? 1 : 0 },
+      ]
+      }
+    >
+      <View style={Styles.sectionTextContainer}>
+        <Text style={Styles.sectionTitle}>{item.title}</Text>
+        <Text style={Styles.sectionDescription}>{item.description}</Text>
+      </View>
+      <View style={Styles.sectionIconContainer}>
+        <Icon
+          name="chevron-right"
+          size={width * 0.05}
+          color="#999999"
+        />
+      </View>
+    </TouchableOpacity>
+  );
+
+  renderListItem(item) {
+    const totalLength = item.contracts.length;
+    return (
+      <Collapse>
+        <CollapseHeader style={Styles.collapseHeader}>
+          <View style={Styles.header}>
+            <Text style={Styles.title}>
+              {item.title + ' (' + item.count + ') '}
+            </Text>
+          </View>
+        </CollapseHeader>
+        <CollapseBody style={Styles.collapseBody}>
+          {
+            item.contracts.map((content, index) => this.renderSection(content, index, totalLength))
+          }
+        </CollapseBody>
+      </Collapse>
+    );
+  }
+
   render() {
     return (
       <View style={Styles.container}>
-        <Text>Workers</Text>
+        <FlatList
+          extraData={this.state}
+          bounces={false}
+          data={WORKERS_LIST}
+          renderItem={({ item }) => this.renderListItem(item)}
+          keyExtractor={(item, index) => index}
+        />
+        <TouchableOpacity style={Styles.floatingAddButton}>
+          <Icon name="plus-circle" size={width * 0.10} color="#6EB4CD" />
+        </TouchableOpacity>
       </View>
     );
   }
