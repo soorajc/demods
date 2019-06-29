@@ -10,12 +10,16 @@ import {
   View,
   Image,
   Text,
+  Dimensions,
 } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown';
 
+import IconTile from '../../components/IconTile/IconTile';
 import Styles from './Styles';
 import SITE_LIST from './SiteList';
+import MENU_ITEMS from './MenuItems';
 
+const { width } = Dimensions.get('window');
 const appLogo = require('../../assets/applogo.png');
 
 
@@ -42,15 +46,30 @@ export default class App extends Component<Props> {
           </View>
           <View style={Styles.dropdownContainer}>
             <Dropdown
-              baseColor="#08325F"
-              textColor="#08325F"
-              itemColor="#08325F"
+              baseColor="#D4D4D4"
+              textColor="#40709D"
+              itemColor="#40709D"
               value="Toulouse"
               selectedItemColor="red"
               overlayStyle={Styles.dropDownOverlay}
               data={SITE_LIST}
             />
           </View>
+        </View>
+        <View style={Styles.iconTilesContainer}>
+          {
+            MENU_ITEMS.map((item, index) => (
+              <IconTile
+                key={item.key}
+                margin={index % 2 === 0 ? Styles.setMargin : null}
+                iconName={item.icon}
+                title={item.title}
+                iconColor={item.color}
+                iconSize={width * 0.15}
+                handlePress={() => console.log(item.title)}
+              />
+            ))
+          }
         </View>
       </View>
     );

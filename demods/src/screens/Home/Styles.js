@@ -45,10 +45,21 @@ const styles = StyleSheet.create({
   },
   dropDownNameLabel: {
     fontSize: height * 0.026,
+    color: '#D4D4D4',
+    fontWeight: '300',
   },
   dropDownOverlay: {
     marginTop: height * 0.06,
     marginLeft: width * 0.05,
+  },
+  iconTilesContainer: {
+    marginTop: height * 0.10,
+    flexDirection: 'row',
+    paddingLeft: width * 0.16,
+    paddingRight: width * 0.10,
+  },
+  setMargin: {
+    marginRight: width * 0.20,
   },
 });
 
